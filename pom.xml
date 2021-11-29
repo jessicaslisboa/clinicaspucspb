@@ -11,7 +11,7 @@
 	<groupId>com.puc</groupId>
 	<artifactId>clinicas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<name>clinicas</name>
 	<description>Clinicas PUC</description>
 	<build>
