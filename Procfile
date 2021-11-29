@@ -1,2 +1,2 @@
-web java -jar --port $PORT target/clinicas-0.0.1-SNAPSHOT.war
+wjava -Dserver.port=$PORT -jar target/clinicas-0.0.1-SNAPSHOT.jar
 
