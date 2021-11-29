@@ -1,1 +1,1 @@
-web: java -jar target/clinicas-0.0.1-SNAPSHOT.war
+web: java $JAVA_OPTS -jar target/clinicas-0.0.1-SNAPSHOT.war --port $PORT target/*.war
