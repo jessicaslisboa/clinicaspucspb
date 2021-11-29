@@ -1,6 +1,7 @@
 package com.puc.clinicas.models;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -22,8 +23,10 @@ import javax.persistence.Table;
 					query="select a from Agenda a where a.usuario.codigo = :codUsuario" ),
 		@NamedQuery(name="Agenda.obterAtivas", 
 		query="select a from Agenda a where a.disponivel = true" )})
-public class Agenda {
+public class Agenda implements Serializable{
 	
+	private static final long serialVersionUID = 7821341351279848830L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "agenda_codigo_seq")
 	@SequenceGenerator(name = "agenda_codigo_seq", allocationSize = 1, sequenceName = ("clinicaspuc.agenda_codigo_seq"))

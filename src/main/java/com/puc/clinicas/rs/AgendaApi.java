@@ -4,6 +4,8 @@ package com.puc.clinicas.rs;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,69 +21,67 @@ import com.puc.clinicas.repository.AgendaRepositorio;
 import io.swagger.annotations.Api;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/agenda")
 @Api(value = "Rest Agenda")
-
 public class AgendaApi {
 	
 	@Autowired
 	private AgendaRepositorio agendaRespositorio;
 	
 	
-	@GetMapping("/agenda")
-	public List<Agenda> getAll(){
+	@GetMapping()
+	public ResponseEntity<Object> getAll(){
 		List<Agenda> agendas = null;
 		try {
 			agendas = agendaRespositorio.findAll();
 		} catch (Exception e) {
 			throw e;
 		}
-		return agendas;//Response.ok(agendas).build();
+		return ResponseEntity.status(HttpStatus.OK).body(agendas);
 	}
 
-	@GetMapping("/agenda/{codigo}")
-	public Agenda getPorCodigo(@PathVariable(value = "codigo") int codigo) {
+	@GetMapping("/{codigo}")
+	public ResponseEntity<Object> getById(@PathVariable(value = "codigo") int codigo) {
 		Agenda agenda = null;
 		try {
-			agenda = agendaRespositorio.getById(codigo);
+			agenda = agendaRespositorio.findById(codigo).get();
 		} catch (Exception e) {
 			throw e;
 		}
-		return agenda;
-		/*if(agenda !=null) {
-			return Response.ok(agenda).build();
+		
+		if(agenda !=null) {
+			return ResponseEntity.status(HttpStatus.OK).body(agenda);
 		}else {
-			return Response.status(Response.Status.NOT_FOUND).build();
-		}*/
+			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+		}
 	}	
 	
 	
 	@PostMapping
-	public Agenda salvar(@RequestBody Agenda agenda) {
+	public ResponseEntity<Object> salvar(@RequestBody Agenda agenda) {
 		Agenda a = null;
 		try {
 			a = agendaRespositorio.save(agenda);
 		} catch (Exception e) {
 			throw e;
 		}
-		return a;
+		return ResponseEntity.status(HttpStatus.OK).body(a);
 	}
 	
-	@DeleteMapping("/agenda/{codigo}")
-	public Agenda excluir(@PathVariable(value = "codigo") Integer codigo) {
-		Agenda m = agendaRespositorio.getById(codigo);
+	@DeleteMapping("/{codigo}")
+	public ResponseEntity<Object> excluir(@PathVariable(value = "codigo") Integer codigo) {
+		Agenda m = agendaRespositorio.findById(codigo).get();
 		if (m != null) {
 			agendaRespositorio.delete(m);
-		}/*else {
-			//TODO Verificar status adequado
-			return Response.status(Response.Status.NOT_FOUND).build();
-		}*/
-		return m;
+			return new ResponseEntity<Object>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+		}
 		
 	} 
 	
-	@PutMapping("/agenda/{codigo}")
-	public Agenda atualizar(@PathVariable(value = "codigo") int codigo, @RequestBody Agenda agenda) {
+	@PutMapping("/{codigo}")
+	public ResponseEntity<Object> atualizar(@PathVariable(value = "codigo") int codigo, @RequestBody Agenda agenda) {
 		Agenda a = null;
 		try {
 			a = agendaRespositorio.getById(codigo);
@@ -91,15 +91,12 @@ public class AgendaApi {
 		} catch (Exception e) {
 			throw e;
 		}
-		return a;
-		/*if(a !=null) {
-			return Response.ok(a).build();
+		if(a !=null) {
+			return ResponseEntity.status(HttpStatus.OK).body(a);
 		}else {
-			return Response.status(Response.Status.NOT_FOUND).build();
-		}*/
+			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+		}
 	}
-	
-
 	
 	/*
 	 * @GET
