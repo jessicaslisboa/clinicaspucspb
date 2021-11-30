@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.puc.clinicas.models.Endereco;
 import com.puc.clinicas.models.Paciente;
+import com.puc.clinicas.repository.EnderecoRepositorio;
 import com.puc.clinicas.repository.PacienteRepositorio;
 
 @RestController
@@ -26,6 +28,9 @@ public class PacienteApi {
 	
 	@Autowired
 	private PacienteRepositorio pacienteRepositorio;
+	
+	@Autowired
+	private EnderecoRepositorio enderecoRepositorio;
 	
 	@GetMapping()
 	public ResponseEntity<Object> getAll(){
@@ -55,8 +60,12 @@ public class PacienteApi {
 	
 	@PostMapping
 	public ResponseEntity<Object> salvar(@RequestBody Paciente paciente) {
-		Paciente p = null;
+		Paciente p = new Paciente();
+		Endereco end = new Endereco();
 		try {
+			end = paciente.getEndereco();
+			end = enderecoRepositorio.save(end);
+			p.setEndereco(end);
 			p = pacienteRepositorio.save(paciente);
 		} catch (Exception e) {
 			throw e;
