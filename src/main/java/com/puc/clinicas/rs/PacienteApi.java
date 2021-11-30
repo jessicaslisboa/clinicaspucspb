@@ -81,6 +81,11 @@ public class PacienteApi {
 		try {
 			p = pacienteRepositorio.findById(codigo).get();
 			if (p != null) {
+				if (paciente.getEndereco() != null) {
+					Endereco end = paciente.getEndereco();
+					end = enderecoRepositorio.save(end);
+					p.setEndereco(end);
+				}
 				p = pacienteRepositorio.save(paciente);
 			}
 		} catch (Exception e) {
