@@ -3,16 +3,16 @@ package com.puc.clinicas.rs;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,10 +39,10 @@ public class ConsultaApi {
 	}
 	
 	@GetMapping("/{codigo}")
-	public ResponseEntity<Object> getById(@PathParam("codPaciente") int codPaciente) {
+	public ResponseEntity<Object> getById(@PathVariable(value = "codigo") int codigo) {
 		Consulta consulta = null;
 		try {
-			consulta = consultaRepositorio.findById(codPaciente).get();
+			consulta = consultaRepositorio.findById(codigo).get();
 		} catch (Exception e) {
 			throw e;
 		}
@@ -88,7 +88,7 @@ public class ConsultaApi {
 	 */
 	
 	@PostMapping
-	public ResponseEntity<Object> salvar(Consulta consulta) {
+	public ResponseEntity<Object> salvar(@RequestBody Consulta consulta) {
 		Consulta c = null;
 		try {
 			c = consultaRepositorio.save(consulta);
@@ -99,7 +99,7 @@ public class ConsultaApi {
 	}
 	
 	@PutMapping("/{codigo}")
-	public ResponseEntity<Object> atualizar(@PathParam("codPaciente") int codigo,Consulta consulta) {
+	public ResponseEntity<Object> atualizar(@PathVariable(value = "codigo") int codigo,@RequestBody Consulta consulta) {
 		Consulta c = null;
 		try {
 			c = consultaRepositorio.findById(codigo).get();
@@ -117,7 +117,7 @@ public class ConsultaApi {
 	}
 	
 	@DeleteMapping("/{codigo}")
-	public ResponseEntity<Object> excluir(@PathParam("codigo") Integer codigo) {
+	public ResponseEntity<Object> excluir(@PathVariable(value = "codigo") Integer codigo) {
 		Consulta c = consultaRepositorio.findById(codigo).get();
 		if (c != null) {
 			consultaRepositorio.delete(c);

@@ -3,16 +3,16 @@ package com.puc.clinicas.rs;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,7 +44,7 @@ public class UsuarioApi {
 	
 	
 	@GetMapping("/{codigo}")
-	public ResponseEntity<Object> getPorCodigo(@PathParam("codigo") int codigo) {
+	public ResponseEntity<Object> getPorCodigo(@PathVariable(value = "codigo") Integer codigo) {
 		Usuario usuario = null;
 		try {
 			usuario = usuarioRepositorio.findById(codigo).get();
@@ -96,7 +96,7 @@ public class UsuarioApi {
 	}
 	
 	@PutMapping("/{codigo}")
-	public ResponseEntity<Object> atualizar(@PathParam("codigo") int codigo, Usuario usuario) {
+	public ResponseEntity<Object> atualizar(@PathVariable(value = "codigo") Integer codigo, @RequestBody Usuario usuario) {
 		Usuario u = null;
 		try {
 			u = usuarioRepositorio.findById(codigo).get();
@@ -114,7 +114,7 @@ public class UsuarioApi {
 	}
 	
 	@DeleteMapping("/{codigo}")
-	public ResponseEntity<Object> excluir(@PathParam("codigo") Integer codigo) {
+	public ResponseEntity<Object> excluir(@PathVariable(value = "codigo") Integer codigo) {
 		Usuario u = usuarioRepositorio.findById(codigo).get();
 		if (u != null) {
 			usuarioRepositorio.delete(u);
