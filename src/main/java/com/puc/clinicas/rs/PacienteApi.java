@@ -54,7 +54,7 @@ public class PacienteApi {
 	}	
 	
 	@PostMapping
-	public ResponseEntity<Object> salvar(Paciente paciente) {
+	public ResponseEntity<Object> salvar(@RequestBody Paciente paciente) {
 		Paciente p = null;
 		try {
 			p = pacienteRepositorio.save(paciente);
