@@ -100,17 +100,17 @@ public class AgendaApi {
 		}
 	}
 	
-	/*
-	 * @GET
-	 * 
-	 * @Path("/usuario/{codUsuario}") public Response
-	 * getPorCodigoUsuario(@PathParam("codUsuario") int codUsuario){ List<Agenda>
-	 * agendas = null; try { agendas =
-	 * agendaService.oberAgendaPorUsuario(codUsuario); } catch (Exception e) { throw
-	 * e; } return Response.ok(agendas).build(); }
-
-	*/
 	
-	
+	  
+	  @GetMapping("/usuario/{codUsuario}") 
+	  public ResponseEntity<Object> getPorCodigoUsuario(@PathVariable(value = "codigo") int codigo){ 
+		  List<Agenda> agendas = null; 
+		  try { 
+			  agendas = agendaRespositorio.findByUsuario(codigo); 
+		  } catch (Exception e) { 
+			  throw e; 
+		  } 
+		  return ResponseEntity.status(HttpStatus.OK).body(agendas);
+	  }
 	
 }

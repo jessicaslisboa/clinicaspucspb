@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.puc.clinicas.models.Consulta;
+import com.puc.clinicas.models.Exame;
 import com.puc.clinicas.repository.ConsultaRepositorio;
+import com.puc.clinicas.repository.ExameRepositorio;
 
 @RestController
 @RequestMapping(value = "/consulta")
@@ -26,6 +28,9 @@ public class ConsultaApi {
 	
 	@Autowired
 	private ConsultaRepositorio consultaRepositorio;
+	
+	@Autowired
+	private ExameRepositorio exameRepositorio;
 	
 	@GetMapping()
 	public ResponseEntity<Object> getAll(){
@@ -53,7 +58,7 @@ public class ConsultaApi {
 		}
 	}	
 	
-	/*@GetMapping("/pendentes") 
+	@GetMapping("/pendentes") 
 	public ResponseEntity<Object> getPorCodigoUsuario(){ 
 		List<Consulta> consultas = null; 
 		try { 
@@ -61,21 +66,20 @@ public class ConsultaApi {
 		} catch (Exception e) { 
 			throw e; 
 		} 
-		//TODO tratar usuario ? 
-		return Response.ok(consultas).build(); 
+		return ResponseEntity.status(HttpStatus.OK).body(consultas);
 	 }
 
 	@GetMapping("/exames") 
 	public ResponseEntity<Object> getExamesList(){ 
 		List<Exame> exames = null; 
 		try { 
-			exames = consultaRepositorio.listaExames(); 
+			exames = exameRepositorio.findAll(); 
 		} catch (Exception e) { 
 			throw e; 
 		} 
-		return Response.ok(exames).build(); 
+		return ResponseEntity.status(HttpStatus.OK).body(exames);
 	 }
-	 */
+	 
 	
 	/*
 	 * @GET

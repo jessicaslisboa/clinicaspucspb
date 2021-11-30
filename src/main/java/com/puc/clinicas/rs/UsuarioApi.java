@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.puc.clinicas.models.Perfil;
 import com.puc.clinicas.models.Usuario;
+import com.puc.clinicas.repository.PerfilRepositorio;
 import com.puc.clinicas.repository.UsuarioRepositorio;
 
 @RestController
@@ -27,8 +29,8 @@ public class UsuarioApi {
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
 	
-	//@Autowired
-	//private PerfilRepositorio perfilRepositorio;
+	@Autowired
+	private PerfilRepositorio perfilRepositorio;
 	
 	
 	@GetMapping()
@@ -59,31 +61,31 @@ public class UsuarioApi {
 	}	
 	
 	
-	/*@GetMapping("/perfil")
+	@GetMapping("/perfil")
 	public ResponseEntity<Object> listPerfil() {
 		List<Perfil> perfis = null;
 		try {
-			perfis = usuarioRepositorio.getPerfilList();
+			perfis = perfilRepositorio.findAll();
 		} catch (Exception e) {
 			throw e;
 		}
-		return Response.ok(perfis).build();
+		return ResponseEntity.status(HttpStatus.OK).body(perfis);
 	}	
 	
 	@GetMapping("/perfil/{codigo}")
-	public ResponseEntity<Object> listUsuariosPorPerfil(@PathParam("codigo") int codigo) {
+	public ResponseEntity<Object> listUsuariosPorPerfil(@PathVariable(value = "codigo") Integer codigo) {
 		List<Usuario> usuarios = null;
 		try {
 			usuarios = usuarioRepositorio.obterUsuariosPerfil(codigo);
 		} catch (Exception e) {
 			throw e;
 		}
-		return Response.ok(usuarios).build();
-	}*/	
+		return ResponseEntity.status(HttpStatus.OK).body(usuarios);
+	}
 	
 	
 	@PostMapping
-	public ResponseEntity<Object> salvar(Usuario usuario) {
+	public ResponseEntity<Object> salvar(@RequestBody Usuario usuario) {
 		Usuario u = null;
 		try {
 			u = usuarioRepositorio.save(usuario);
