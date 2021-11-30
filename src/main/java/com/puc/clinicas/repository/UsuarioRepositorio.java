@@ -12,5 +12,8 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
 
 	@Query(value ="select u from Usuario u where u.perfil.codigo = :codigo" )
 	public List<Usuario> obterUsuariosPerfil(Integer codigo);
+	
+	@Query(value ="select u from Usuario u where u.email = :email")
+	public Usuario obterPorEmail(String email);
 }	
 
