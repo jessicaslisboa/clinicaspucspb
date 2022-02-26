@@ -24,7 +24,7 @@ import com.puc.clinicas.repository.PacienteRepositorio;
 @RestController
 @RequestMapping(value = "/paciente")
 @CrossOrigin(origins = "*")
-public class PacienteApi {
+public class PacienteController {
 	
 	@Autowired
 	private PacienteRepositorio pacienteRepositorio;

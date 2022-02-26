@@ -1,4 +1,4 @@
-package com.puc.clinicas.rs;
+	package com.puc.clinicas.rs;
 
 
 import java.util.List;
@@ -24,7 +24,7 @@ import com.puc.clinicas.repository.UsuarioRepositorio;
 @RestController
 @RequestMapping(value = "/usuario")
 @CrossOrigin(origins = "*")
-public class UsuarioApi {
+public class UsuarioController {
 	
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;

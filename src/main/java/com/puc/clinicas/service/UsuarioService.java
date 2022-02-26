@@ -15,9 +15,9 @@ public class UsuarioService {
 
 	
 	public boolean verificaLogin(UsuarioLogin usuario) {
-		Usuario user = usuarioRepositorio.obterPorEmail(usuario.getEmail());
+		Usuario user = usuarioRepositorio.obterPorEmail(usuario.getUsername());
 		if(user != null) {
-			if(user.getSenha().equals(usuario.getSenha())){
+			if(user.getSenha().equals(usuario.getPassword())){
 				return true;
 			}
 		}

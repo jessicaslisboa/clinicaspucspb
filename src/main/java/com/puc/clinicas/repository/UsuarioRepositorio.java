@@ -5,9 +5,10 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.puc.clinicas.models.Usuario;
-
+@Repository
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
 
 	@Query(value ="select u from Usuario u where u.perfil.codigo = :codigo" )

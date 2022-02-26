@@ -22,7 +22,7 @@ import com.puc.clinicas.repository.MedicamentoRepositorio;
 @RestController
 @RequestMapping(value = "/medicamento")
 @CrossOrigin(origins = "*")
-public class MedicamentoApi {
+public class MedicamentoController {
 	
 	@Autowired
 	private MedicamentoRepositorio medicamentoRepositorio;

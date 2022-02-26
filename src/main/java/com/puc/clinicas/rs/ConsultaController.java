@@ -24,7 +24,7 @@ import com.puc.clinicas.repository.ExameRepositorio;
 @RestController
 @RequestMapping(value = "/consulta")
 @CrossOrigin(origins = "*")
-public class ConsultaApi {
+public class ConsultaController {
 	
 	@Autowired
 	private ConsultaRepositorio consultaRepositorio;

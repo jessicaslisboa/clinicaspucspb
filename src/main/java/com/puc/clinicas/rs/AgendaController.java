@@ -25,7 +25,7 @@ import io.swagger.annotations.Api;
 @RequestMapping(value = "/agenda")
 @Api(value = "Rest Agenda")
 @CrossOrigin(origins = "*")
-public class AgendaApi {
+public class AgendaController {
 	
 	@Autowired
 	private AgendaRepositorio agendaRespositorio;
